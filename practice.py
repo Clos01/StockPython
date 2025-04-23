@@ -12,19 +12,24 @@ def startup():
 def chooseTicker():
     chooseTicker = input("Please type in the ticker you would like to search up for ")
     print(chooseTicker)
+    return chooseTicker
+
+def  lookUpTicker():
+    tickerChosenByUsr = chooseTicker()
+    tickerSymbol = yf.Ticker(f"{tickerChosenByUsr}")
+    info = tickerSymbol.info
+    # info = ickerSymbol.info
+    print(info)
+    return info
+
+# ticker = yf.Ticker("aapl")
 
 
-import yfinance as yf
-
-
-ticker = yf.Ticker("aapl")
-
-
-info = ticker.info
+# info = ticker.info
 
 def main():
     startup()
-    chooseTicker()
+    lookUpTicker()
 
 # calling main
 main()
