@@ -55,6 +55,7 @@ def data_frame():
     print(dataFormat.head())
     print("\nDataFrame summary:")
     print(dataFormat.describe())
+    
     return dataFormat
 
 
