@@ -1,42 +1,67 @@
 import yfinance as yf
+import pandas as pd 
+# from tabulate import tabulate
 
 def startup():
     greeting = "hello and welcome to the stock market!  "
     print(greeting)
 
 
-def tickerInput():
+def get_ticker_input():
     tickerInput = input("Please type in the ticker you would like to search up for:  ").lower()
     print(f"You have chosen {tickerInput.upper()}") 
     return tickerInput
+                          
 
-#  I want to be able to check to see if the user didnt type anything dumb 
-
-def validateTickerInput():
-    userTicketInput = tickerInput()
+def validate_ticker_input():
+    userTicketInput = get_ticker_input()
+   
     if userTicketInput == "":
-        exitProgram()
+        print("No Input")
+        exit_program()
     else:
-       return userTicketInput
+        ticker = yf.Ticker(userTicketInput)
+        info = ticker.info
+        if not info or info.get("regularMarketPrice") is None:
+            print("Possible mistype for ticker or no market data found.")
+            return exit_program()
+        return userTicketInput
 
-def exitProgram():
-    inputForExit = input("Type 'exit' to leave program:  ").lower()
+def exit_program():
+    inputForExit = input("\nType 'exit' to leave program: ").lower()
     if inputForExit == "exit":
         return "you have left the program!"
     else:
-        return validateTickerInput()
+        return validate_ticker_input()
 
 
-def  lookUpTicker():
-    tickerChosenByUsr = validateTickerInput()
-    tickerSymbol = yf.Ticker(f"{tickerChosenByUsr}")
-    info = tickerSymbol.info
-    print(info)
+def provide_info_for_ticker():
+    validTicker = validate_ticker_input()
+    ticker = yf.Ticker(validTicker)
+    info = ticker.info
+    print(info)    
     return info
+    
+
+def data_frame():
+
+    beginningDate = input("\nPlease enter the time frame date in format (YYYY-MM-DD): ")
+    lastDate = input("\nPlease enter the time frame date in format (YYYY-MM-DD): ")
+    dataFormat = pd.DataFrame({"date": [beginningDate, lastDate]})
+    # Converting the 'date' column to datetime
+    dataFormat['date'] = pd.to_datetime(dataFormat['date'])
+    # Display a preview and summary statistics
+    print("\nDataFrame preview:")
+    print(dataFormat.head())
+    print("\nDataFrame summary:")
+    print(dataFormat.describe())
+    return dataFormat
+
 
 def main():
     startup()
-    lookUpTicker()
-
+    provide_info_for_ticker()
+    data_frame()
+    exit_program()
 # calling main
 main()
