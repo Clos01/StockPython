@@ -1,5 +1,6 @@
 import yfinance as yf
 import pandas as pd 
+import numpy as np
 # from tabulate import tabulate
 
 def startup():
@@ -20,11 +21,12 @@ def validate_ticker_input():
         print("No Input")
         exit_program()
     else:
-        ticker = yf.Ticker(userTicketInput)
-        info = ticker.info
-        if not info or info.get("regularMarketPrice") is None:
-            print("Possible mistype for ticker or no market data found.")
-            return exit_program()
+        
+        # ticker = yf.Ticker(userTicketInput)
+        # info = ticker.info
+        # if not info or info.get("regularMarketPrice") is None:
+        #     print("Possible mistype for ticker or no market data found.")
+        #     return exit_program()
         return userTicketInput
 
 def exit_program():
@@ -43,26 +45,29 @@ def provide_info_for_ticker():
     return info
     
 
-def data_frame():
+# def data_frame():
 
-    beginningDate = input("\nPlease enter the time frame date in format (YYYY-MM-DD): ")
-    lastDate = input("\nPlease enter the time frame date in format (YYYY-MM-DD): ")
-    dataFormat = pd.DataFrame({"date": [beginningDate, lastDate]})
-    # Converting the 'date' column to datetime
-    dataFormat['date'] = pd.to_datetime(dataFormat['date'])
-    # Display a preview and summary statistics
-    print("\nDataFrame preview:")
-    print(dataFormat.head())
-    print("\nDataFrame summary:")
-    print(dataFormat.describe())
+#     beginningDate = input("\nPlease enter the time frame date in format (YYYY-MM-DD): ")
+#     lastDate = input("\nPlease enter the time frame date in format (YYYY-MM-DD): ")
+#     dataFormat = pd.DataFrame({"date": [beginningDate, lastDate]})
+#     # Converting the 'date' column to datetime
+#     dataFormat['date'] = pd.to_datetime(dataFormat['date'])
+#     # Display a preview and summary statistics
+#     print("\nDataFrame preview:")
+#     print(dataFormat.head())
+#     print("\nDataFrame summary:")
+#     print(dataFormat.describe())
     
-    return dataFormat
+    # return dataFormat
+
+# def download_data():
+#     data = yf.download()
 
 
 def main():
     startup()
     provide_info_for_ticker()
-    data_frame()
+    # data_frame()
     exit_program()
 # calling main
 main()
