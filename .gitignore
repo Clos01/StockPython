@@ -1,0 +1,19 @@
+# Environment variables
+test.env
+*.env
+
+# Python
+*.pyc
+__pycache__/
+venv/
+venv_trading/
+*.egg-info/
+dist/
+build/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDE
+.vscode/
+.idea/
